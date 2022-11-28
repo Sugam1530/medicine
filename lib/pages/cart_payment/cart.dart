@@ -589,7 +589,7 @@ class _CartState extends State<Cart> {
                           Container(
                             width: 100.0,
                             alignment: Alignment.center,
-                            child: Text('\$$cartValue', style: priceStyle),
+                            child: Text('\₹$cartValue', style: priceStyle),
                           ),
                           ButtonTheme(
                             minWidth: width - (fixPadding * 2.0 + 100.0),
@@ -789,9 +789,9 @@ class _CartState extends State<Cart> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('\$${item['price']}', style: priceStyle),
+                        Text('\₹${item['price']}', style: priceStyle),
                         widthSpace,
-                        Text('\$${item['oldPrice']}', style: oldStyle),
+                        Text('\₹${item['oldPrice']}', style: oldStyle),
                         widthSpace,
                         Container(
                           padding: EdgeInsets.only(
@@ -893,8 +893,8 @@ class _CartState extends State<Cart> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('\$$totalOldPrice', style: oldStyle),
-                  Text('\$$cartValue', style: primaryColorHeadingStyle),
+                  Text('\₹$totalOldPrice', style: oldStyle),
+                  Text('\₹$cartValue', style: primaryColorHeadingStyle),
                 ],
               ),
             ],
@@ -905,7 +905,7 @@ class _CartState extends State<Cart> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text('Delivery Charge', style: searchTextStyle),
-              Text('\$$deliveryCharge', style: primaryColorHeadingStyle),
+              Text('\₹$deliveryCharge', style: primaryColorHeadingStyle),
             ],
           ),
           heightSpace,
@@ -926,7 +926,7 @@ class _CartState extends State<Cart> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text('Amount to be paid', style: primaryColorHeadingStyle),
-              Text('\$${cartValue + deliveryCharge}',
+              Text('\₹${cartValue + deliveryCharge}',
                   style: primaryColorHeadingStyle),
             ],
           ),
@@ -971,7 +971,7 @@ class _CartState extends State<Cart> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                            'Total savings of \$${totalOldPrice - cartValue} on this order',
+                            'Total savings of \₹${totalOldPrice - cartValue} on this order',
                             style: primaryColorHeadingStyle),
                         heightSpace,
                         Row(
@@ -980,7 +980,7 @@ class _CartState extends State<Cart> {
                           children: [
                             Text('MRP Discount',
                                 style: primaryColorDescTextStyle),
-                            Text('\$${totalOldPrice - cartValue}',
+                            Text('\₹${totalOldPrice - cartValue}',
                                 style: primaryColorDescTextStyle),
                           ],
                         ),

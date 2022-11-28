@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_countdown_timer/countdown_timer.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:cabento/constants/constants.dart';
-import 'package:cabento/pages/product/product.dart';
-import 'package:cabento/pages/products_list/product_list.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../constants/constants.dart';
+import '../product/product.dart';
+import '../products_list/product_list.dart';
 
 class DealOfTheDayGrid extends StatefulWidget {
   @override
@@ -341,12 +342,12 @@ class _DealOfTheDayGridState extends State<DealOfTheDayGrid> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              '\$${item['price']}',
+                              '\₹${item['price']}',
                               style: priceStyle,
                             ),
                             SizedBox(width: 5.0),
                             Text(
-                              '\$${item['oldPrice']}',
+                              '\₹${item['oldPrice']}',
                               style: oldStyle,
                             ),
                           ],

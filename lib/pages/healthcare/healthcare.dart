@@ -48,6 +48,7 @@ class _HealthCareState extends State<HealthCare> {
     return Scaffold(
       backgroundColor: scaffoldBgColor,
       appBar: AppBar(
+        backgroundColor: primaryColor,
         automaticallyImplyLeading: false,
         elevation: 0.0,
         title: Column(

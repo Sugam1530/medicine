@@ -243,12 +243,12 @@ class _HandpickedItemGridState extends State<HandpickedItemGrid> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              '\$${item['price']}',
+                              '\₹${item['price']}',
                               style: priceStyle,
                             ),
                             SizedBox(width: 5.0),
                             Text(
-                              '\$${item['oldPrice']}',
+                              '\₹${item['oldPrice']}',
                               style: oldStyle,
                             ),
                           ],

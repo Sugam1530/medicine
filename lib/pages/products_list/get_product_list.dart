@@ -181,9 +181,9 @@ class _GetProductListState extends State<GetProductList> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text('\$${item['price']}', style: priceStyle),
+                              Text('\₹${item['price']}', style: priceStyle),
                               widthSpace,
-                              Text('\$${item['oldPrice']}', style: oldStyle),
+                              Text('\₹${item['oldPrice']}', style: oldStyle),
                               widthSpace,
                               Container(
                                 padding: EdgeInsets.only(

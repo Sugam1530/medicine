@@ -533,7 +533,7 @@ class _ProductState extends State<Product> {
           Text('By ${item['companyName']}',
               style: thickPrimaryColorHeadingStyle),
           heightSpace,
-          Text('\$${item['price']}', style: priceStyle),
+          Text('\₹${item['price']}', style: priceStyle),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -542,7 +542,7 @@ class _ProductState extends State<Product> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('\$${item['oldPrice']}', style: oldStyle),
+                  Text('\₹${item['oldPrice']}', style: oldStyle),
                   widthSpace,
                   Container(
                     padding: EdgeInsets.only(
