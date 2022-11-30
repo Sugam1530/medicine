@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart';
+import 'package:cabento/pages/home/shop_by_brand.dart';
+import 'package:cabento/pages/home/shop_by_category.dart';
+import 'package:cabento/pages/home/special_category.dart';
 import 'package:flutter/material.dart';
 import 'package:cabento/constants/constants.dart';
 import 'package:cabento/pages/cart_payment/cart.dart';
@@ -12,7 +17,11 @@ import 'package:cabento/pages/home/slider.dart';
 import 'package:cabento/pages/home/top_categories_grid.dart';
 import 'package:cabento/pages/offer/offer.dart';
 import 'package:cabento/pages/search/search.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:image_cropper/image_cropper.dart';
+
+import 'health_articles.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -26,6 +35,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: scaffoldBgColor,
       appBar: AppBar(
+        toolbarHeight: 80,
         backgroundColor: primaryColor,
         automaticallyImplyLeading: false,
         elevation: 0.0,
@@ -33,9 +43,13 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'cabento',
-              style: appBarTitleStyle,
+            SizedBox(
+              height: 10,
+            ),
+            Image.asset(
+              "assets/transparent-icon.png",
+              color: Colors.white,
+              scale: 2,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -75,9 +89,12 @@ class _HomeState extends State<Home> {
           IconButton(
             onPressed: () {
               Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft, child: Offer()));
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: Offer(),
+                ),
+              );
             },
             icon: Icon(Icons.local_offer),
           ),
@@ -92,9 +109,12 @@ class _HomeState extends State<Home> {
             ),
             onPressed: () {
               Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft, child: Cart()));
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: Cart(),
+                ),
+              );
             },
           ),
         ],
@@ -141,11 +161,96 @@ class _HomeState extends State<Home> {
           MainSlider(),
           // Main Slider Ends
           // Previous Order Row Start
+          SpecialCategory(),
+          Row(
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                "Order quickly with prescription",
+                style: blackHeadingStyle,
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 8.0, bottom: 8.0, left: 20, right: 20),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.upload_file_outlined),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "upload prescription",
+                    style: whiteTextButtonTextStyle,
+                  ),
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueGrey,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "assets/whatsapp.png",
+                        scale: 20,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Book on whatsapp"),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "assets/call.png",
+                        scale: 20,
+                        color: Colors.greenAccent,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text("call and book now"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           PreviousOrder(),
           // Previous Order Row Ends
           // Doscount Grid Start
           DiscountGrid(),
           // Doscount Grid Ends
+          heightSpace,
+          heightSpace,
+          shopbycategory(),
+
+          heightSpace,
+          heightSpace,
+
+          shop_by_brand(),
+          
           heightSpace,
           heightSpace,
           //Handpicked Item Grid Start
@@ -156,6 +261,7 @@ class _HomeState extends State<Home> {
           // Featured Brands Grid Start
           FeaturedBrandGrid(),
           // Featured Brands Grid End
+
           heightSpace,
           heightSpace,
           // Deal of the day Start
@@ -186,6 +292,7 @@ class _HomeState extends State<Home> {
           // Rate Us Now End
           heightSpace,
           heightSpace,
+          health_articles(),
         ],
       ),
     );

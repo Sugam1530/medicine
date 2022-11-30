@@ -38,7 +38,7 @@ class _OfferState extends State<Offer> {
         backgroundColor: primaryColor,
         elevation: 0.0,
         titleSpacing: 0.0,
-        title: Text('Notifications', style: appBarTitleStyle),
+        title: Text('Available offers', style: appBarTitleStyle),
         actions: [
           IconButton(
             icon: Icon(

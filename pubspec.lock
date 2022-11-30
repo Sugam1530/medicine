@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      sha256: f71079978789bc2fe78d79227f1f8cfe195b31bbd8db2399b0d15a4b96fb843b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3+2"
   crypto:
     dependency: transitive
     description:
@@ -170,10 +178,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: f64fc84e913a3c225588724c811f5f6600562d17fc6f6cea7fda264fc93361ae
+      sha256: "60fc7b78455b94e6de2333d2f95196d32cf5c22f4b0b0520a628804cb463503b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.11"
+    version: "2.0.7"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -204,18 +212,18 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "411262398b34f52b9baac4860a1aa6e4779037ba9289c19b4cd16928efa97a2b"
+      sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.2"
+    version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
-      sha256: "9d2b0626e9e402fc98e6868360da8f256064d6c0b8e4c3edcca5e02fb0b95da9"
+      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.4"
+    version: "4.0.2"
   image:
     dependency: transitive
     description:
@@ -224,22 +232,70 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.19"
+  image_cropper:
+    dependency: "direct main"
+    description:
+      name: image_cropper
+      sha256: "85324928ee8a8be35a529446435ca53067865b9353c8681983472eeec66d780f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+  image_cropper_for_web:
+    dependency: transitive
+    description:
+      name: image_cropper_for_web
+      sha256: "09e93a8ec0435adcaa23622ac090442872f18145d70b9ff605ffedcf97d56255"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  image_cropper_platform_interface:
+    dependency: transitive
+    description:
+      name: image_cropper_platform_interface
+      sha256: "62349e3aab63873ea9b9ab9f69d036ab8a0d74b3004beec4303981386cb9273f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3"
   image_picker:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "751a0922616fa8cccd3947018f01a286d0214a29f5a161eebc8e6280035668f4"
+      sha256: a8f2f0aed50c03230ab37e93ca2905c50b6c4097245345956eb24a88f45328cd
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.7+22"
+    version: "0.8.6"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      sha256: "822f71a53336bf1e638dbf955047080ca49ba0197f52c4fece9cf584c368648a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.5+3"
+  image_picker_for_web:
+    dependency: transitive
+    description:
+      name: image_picker_for_web
+      sha256: "7d319fb74955ca46d9bf7011497860e3923bb67feebcf068f489311065863899"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.10"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      sha256: "1768087441bd69ca632249d212c26fa8d530552d37b4896a4dd8d6781435c147"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.6+1"
   image_picker_platform_interface:
     dependency: transitive
     description:
       name: image_picker_platform_interface
-      sha256: "4e54be077192d03ba1d8307d876e7a2df46cbc1f29e7601d64049fff0609e0f8"
+      sha256: "7cef2f28f4f2fef99180f636c3d446b4ccbafd6ba0fad2adc9a80c4040f656b8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.6"
+    version: "2.6.2"
   international_phone_input:
     dependency: "direct main"
     description:
@@ -320,14 +376,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.4"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      sha256: "67fc27ed9639506c856c840ccce7594d0bdcd91bc8d53d6e52359449a1d50602"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:
@@ -340,10 +388,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: c3ebbff365bfb1b5f7b690c9857d2dabea167f35b05eb7586186499b407efb37
+      sha256: dbf0f707c78beedc9200146ad3cb0ab4d5da13c246336987be6940f026500d3a
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "2.1.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -439,4 +487,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.18.0 <3.0.0"
-  flutter: ">=1.12.13"
+  flutter: ">=2.10.0"
