@@ -21,6 +21,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:image_cropper/image_cropper.dart';
 
+import 'feedback.dart';
+import 'healtcondition.dart';
 import 'health_articles.dart';
 
 class Home extends StatefulWidget {
@@ -249,8 +251,8 @@ class _HomeState extends State<Home> {
           heightSpace,
           heightSpace,
 
-          shop_by_brand(),
-          
+          FeaturedBrandGrid(),
+
           heightSpace,
           heightSpace,
           //Handpicked Item Grid Start
@@ -259,11 +261,8 @@ class _HomeState extends State<Home> {
           heightSpace,
           heightSpace,
           // Featured Brands Grid Start
-          FeaturedBrandGrid(),
-          // Featured Brands Grid End
 
-          heightSpace,
-          heightSpace,
+          // Featured Brands Grid End
           // Deal of the day Start
           DealOfTheDayGrid(),
           // Deal of the day End
@@ -292,7 +291,32 @@ class _HomeState extends State<Home> {
           // Rate Us Now End
           heightSpace,
           heightSpace,
-          health_articles(),
+
+          healthcondition(),
+
+          heightSpace,
+          heightSpace,
+
+          feedback(),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 30, left: 60),
+                child: Text(
+                  'Stay home, Stay safe  with Cabento',
+                  style: TextStyle(fontSize: 16, color: primaryColor),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30, left: 8),
+                child: Icon(
+                  Icons.favorite,
+                  size: 35,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

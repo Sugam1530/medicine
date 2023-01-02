@@ -23,6 +23,7 @@ class _health_articlesState extends State<health_articles> {
                   "Health Articles",
                   style: TextStyle(
                     fontSize: 17,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -34,7 +35,18 @@ class _health_articlesState extends State<health_articles> {
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
-              
+              ListView.builder(
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Column(
+                      children: [
+                        Text("data"),
+                      ],
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ],
