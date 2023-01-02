@@ -1,223 +1,638 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: camel_case_types, unnecessary_import, deprecated_member_use
+
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:cabento/constants/constants.dart';
-import 'package:cabento/pages/bottom_bar.dart';
-import 'package:cabento/pages/login_signup/login.dart';
-import 'package:cabento/pages/profile/active_order.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
+  const Profile({Key key}) : super(key: key);
+
   @override
-  _ProfileState createState() => _ProfileState();
+  State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  final mobileNumberController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    mobileNumberController.text = '123456789';
+  File _image;
+  Future getImagefromcamera() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image as File;
+    });
   }
 
-  deletePrescriptionImageDialogue() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return Dialog(
-          elevation: 0.0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          child: Container(
-            height: 130.0,
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Are you sure want to logout?",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: (MediaQuery.of(context).size.width / 3.5),
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Text(
-                          'Cancel',
-                          style: primaryColorTextButtonTextStyle,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Login()));
-                      },
-                      child: Container(
-                        width: (MediaQuery.of(context).size.width / 3.5),
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Text(
-                          'Logout',
-                          style: whiteTextButtonTextStyle,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+  Future getImagefromGallery() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image as File;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: scaffoldBgColor,
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        elevation: 0.0,
-        automaticallyImplyLeading: false,
-        title: Text('Complete Your Profile', style: appBarTitleStyle),
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BottomBar()));
-            },
-            style: ElevatedButton.styleFrom(
-              primary: primaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Container(
+                child: Center(
+                    child: Text(
+                  'MY PROFILE',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25),
+                )),
+                height: 100,
+                width: 400,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20)),
+                  color: primaryColor,
+                ),
               ),
             ),
-            child: Text(
-              'Save',
-              style: whiteTextButtonTextStyle,
+            SizedBox(
+              height: 40,
             ),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          Container(
-            width: width,
-            color: whiteColor,
-            padding: EdgeInsets.all(fixPadding * 2.0),
-            child: Column(
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: width - (fixPadding * 4.0),
-                  child: TextField(
-                    autocorrect: true,
-                    style: searchTextStyle,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      labelStyle: subHeadingStyle,
-                      border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.grey[300], width: 0.6),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor, width: 0.9),
-                      ),
+                Column(
+                  children: [
+                    Text(
+                      'Riya Das',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 30),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            'M: ',
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '+91 00000 00000',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                heightSpace,
-                heightSpace,
-                Container(
-                  width: width - (fixPadding * 4.0),
-                  child: TextField(
-                    controller: mobileNumberController,
-                    keyboardType: TextInputType.number,
-                    style: searchTextStyle,
-                    decoration: InputDecoration(
-                      labelText: 'Mobile Number',
-                      labelStyle: subHeadingStyle,
-                      border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.grey[300], width: 0.6),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor, width: 0.9),
+                SizedBox(
+                  width: 45,
+                ),
+                Stack(
+                  children: [
+                    ClipOval(
+                      child: CircleAvatar(
+                        backgroundColor: primaryColor,
+                        child: _image == null
+                            ? Icon(
+                                Icons.person,
+                                size: 120,
+                              )
+                            : Image.file(_image as File),
+                        radius: 60,
                       ),
                     ),
-                  ),
+                    Positioned(
+                      top: 90,
+                      left: 75,
+                      child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 18,
+                          child: IconButton(
+                              alignment: Alignment.center,
+                              onPressed: getImagefromGallery,
+                              icon: Icon(
+                                Icons.camera_alt,
+                                color: primaryColor,
+                                size: 25,
+                              ),),),
+                    )
+                  ],
                 ),
               ],
             ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: ActiveOrder()));
-            },
-            child: Container(
-              width: width,
-              margin: EdgeInsets.all(fixPadding * 2.0),
-              padding: EdgeInsets.all(fixPadding * 1.5),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: primaryColor,
-              ),
-              child: Text('Active Orders', style: whiteColorHeadingStyle),
+            SizedBox(
+              height: 40,
             ),
-          ),
-          InkWell(
-            onTap: () {
-              deletePrescriptionImageDialogue();
-            },
-            child: Container(
-              width: width,
-              margin: EdgeInsets.only(
-                  right: fixPadding * 2.0,
-                  left: fixPadding * 2.0,
-                  bottom: fixPadding * 2.0),
-              padding: EdgeInsets.all(fixPadding * 1.5),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(width: 1.3, color: primaryColor),
-                color: whiteColor,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                physics: ClampingScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.card_giftcard,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'My Order',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.description,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'My Prescriptions',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.battery_std_outlined,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'My Lab Test',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.medication,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'My Consultation',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.note_alt_outlined,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'My Helth Records',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.place,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Manage Address',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.credit_card,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Manage Payment Method',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.vaccines_rounded,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Medicine Reminder',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.attach_money,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Refer & Earn',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.people_alt_sharp,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'About us',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.call,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Contact us',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Container(
+                          height: 40,
+                          width: 320,
+                          color: Color.fromARGB(255, 216, 215, 215),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  child: Icon(
+                                    Icons.live_help,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    'Need Help ?',
+                                    style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              child: Text('Logout', style: primaryColorHeadingStyle),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

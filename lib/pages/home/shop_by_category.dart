@@ -22,7 +22,7 @@ class _shopbycategoryState extends State<shopbycategory> {
                 margin: EdgeInsets.only(left: 20,),
                 child: Text(
                   'Shop by Category',
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
               Spacer(),
