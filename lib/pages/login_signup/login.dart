@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cabento/pages/login_signup/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cabento/constants/constants.dart';
-import 'package:international_phone_input/international_phone_input.dart';
-import 'package:cabento/pages/login_signup/register.dart';
-import 'package:page_transition/page_transition.dart';
+
+import 'package:http/http.dart';
+import '';
 
 class Login extends StatefulWidget {
   @override
@@ -13,6 +15,26 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+              margin: const EdgeInsets.only(left: 7),
+              child: const Text("Loading...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   String phoneNumber;
   String phoneIsoCode;
   DateTime currentBackPressTime;
@@ -22,6 +44,45 @@ class _LoginState extends State<Login> {
       phoneNumber = number;
       phoneIsoCode = isoCode;
     });
+  }
+
+  var message;
+
+  TextEditingController phoneController = TextEditingController();
+
+// ignore: non_constant_identifier_names
+  void Login(String phone) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://fusionclient.live/FTL190160/cabento/api/user-login'),
+          body: {
+            'phone': phone,
+          });
+      Map<String, dynamic> map = jsonDecode(response.body.toString());
+      message = (map["message"]);
+
+      if (response.statusCode == 200) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => OTPScreen(),
+        ));
+        // ignore: use_build_context_synchronously
+      } else {
+        // Navigator.pop(context);
+        // ignore: avoid_print
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              message.toString(),
+            ),
+          ),
+        );
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
+    }
   }
 
   @override
@@ -57,41 +118,50 @@ class _LoginState extends State<Login> {
                   heightSpace,
                   heightSpace,
                   Container(
-                    padding: EdgeInsets.only(left: fixPadding),
-                    decoration: BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(width: 0.3, color: primaryColor),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          blurRadius: 1.5,
-                          spreadRadius: 1.5,
-                          color: Colors.grey[200],
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    child: Material(
+                      elevation: 10,
+                      borderRadius: BorderRadius.circular(10),
+                      child: TextFormField(
+                        controller: phoneController,
+                        //controller: confirm_passwordController,
+
+                        textAlignVertical: TextAlignVertical.center,
+
+                        //textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 20),
+
+                          //border: InputBorder.none,
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'phoneNumber',
+                          //alignLabelWithHint: true,
+                          labelStyle: const TextStyle(
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold),
+                          prefixIcon: Container(
+                              margin: EdgeInsets.only(left: 8),
+                              child: Container(
+                                margin: EdgeInsets.only(),
+                                child: Image.asset(
+                                  'assets/india.png',
+                                  scale: 18,
+                                ),
+                              )),
+                          prefix: Container(
+                            margin: EdgeInsets.only(right: 20),
+                            child: Text('+91'),
+                          ),
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
-                    child: InternationalPhoneInput(
-                      onPhoneNumberChange: onPhoneNumberChange,
-                      initialPhoneNumber: phoneNumber,
-                      initialSelection: phoneIsoCode,
-                      enabledCountries: [
-                        '+233',
-                        '+1',
-                        '+91',
-                        '+596',
-                        '+689',
-                        '+262',
-                        '+241',
-                        '+220',
-                        '+995',
-                        '+49',
-                        '+350'
-                      ],
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(15.0),
-                        hintText: 'Phone Number',
-                        hintStyle: greyHeadingStyle,
-                        border: InputBorder.none,
                       ),
                     ),
                   ),
@@ -101,15 +171,14 @@ class _LoginState extends State<Login> {
                   heightSpace,
                   Container(
                     child: SizedBox(
-                      height: 50.0,
+                      height: 45.0,
                       width: width - (fixPadding * 2.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: Register()));
+                          showLoaderDialog(context);
+                          Login(
+                            phoneController.text.toString().trim(),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           primary: primaryColor,

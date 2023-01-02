@@ -22,17 +22,23 @@ class _SpecialCategoryState extends State<SpecialCategory> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "assets/medicines_banner.png",
-                scale: 2.2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  "assets/medicines_banner.png",
+                  scale: 2.2,
+                ),
               ),
             ),
             InkWell(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  "assets/labtests_banner.png",
-                  scale: 2.2,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.asset(
+                    "assets/labtests_banner.png",
+                    scale: 2.2,
+                  ),
                 ),
               ),
               onTap: () {
@@ -47,10 +53,13 @@ class _SpecialCategoryState extends State<SpecialCategory> {
             ),
             InkWell(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  "assets/doctor_consultant.png",
-                  scale: 2.2,
+                padding: const EdgeInsets.all(9.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.asset(
+                    "assets/doctor_consultant.png",
+                    scale: 2.2,
+                  ),
                 ),
               ),
               onTap: () {
@@ -65,16 +74,22 @@ class _SpecialCategoryState extends State<SpecialCategory> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "assets/healthcare_banner.png",
-                scale: 2.2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  "assets/healthcare_banner.png",
+                  scale: 2.2,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "assets/deals_banner.png",
-                scale: 2.2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  "assets/deals_banner.png",
+                  scale: 2.2,
+                ),
               ),
             ),
           ],

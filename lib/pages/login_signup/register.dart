@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cabento/constants/constants.dart';
-import 'package:cabento/pages/login_signup/otp_screen.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   @override
@@ -9,6 +8,37 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  // TextEditingController nameController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+
+  // void Register(
+  //   String phone,
+  //   String name,
+  //   email,
+  //   password,
+  // ) async {
+  //   try {
+  //     http.Response response = await http.post(
+  //         Uri.parse(
+  //             'https://fusionclient.live/FTL190160/cabento/api/user-signup-update'),
+  //         body: {
+  //           'phone': phone,
+  //           'name': name,
+  //           'email': email,
+  //           'password': password,
+  //         });
+  //     if (response.statusCode == 200) {
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => ButtonBar()));
+  //     } else {
+  //       print('failed');
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -61,6 +91,7 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   child: TextField(
+                    // controller: nameController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -89,6 +120,7 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   child: TextField(
+                    // controller: passwordController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.text,
                     obscureText: true,
@@ -118,6 +150,7 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   child: TextField(
+                    // controller: emailController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
@@ -137,13 +170,20 @@ class _RegisterState extends State<Register> {
                     width: width - (fixPadding * 2.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: OTPScreen()));
+                        // Register(
+                        //     '2587496587',
+                        //     nameController.text.toString().trim(),
+                        //     passwordController.text.toString().trim(),
+                        //     emailController.text.toString().trim());
+
+                        // Navigator.push(
+                        //     context,
+                        //     PageTransition(
+                        //         type: PageTransitionType.rightToLeft,
+                        //         child: OTPScreen()));
                       },
                       style: ElevatedButton.styleFrom(
+                        // ignore: deprecated_member_use
                         primary: primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0),

@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:cabento/pages/login_signup/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cabento/constants/constants.dart';
-import 'package:cabento/pages/bottom_bar.dart';
+import 'package:http/http.dart' as http;
+
+
 
 class OTPScreen extends StatefulWidget {
   @override
@@ -11,13 +14,39 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  var firstController = TextEditingController();
-  var secondController = TextEditingController();
-  var thirdController = TextEditingController();
-  var fourthController = TextEditingController();
   FocusNode secondFocusNode = FocusNode();
   FocusNode thirdFocusNode = FocusNode();
   FocusNode fourthFocusNode = FocusNode();
+  TextEditingController otpController1 = TextEditingController();
+  TextEditingController otpController2 = TextEditingController();
+  TextEditingController otpController3 = TextEditingController();
+  TextEditingController otpController4 = TextEditingController();
+  void otp(
+    String phone,
+    String otp,
+  ) async {
+    try {
+      http.Response response = await http.post(
+          Uri.parse('https://fusionclient.live/FTL190160/cabento/api/user-otp'),
+          body: {
+            'phone': phone,
+            'otp': otp,
+          });
+      if (response.statusCode == 200) {
+        // final SharedPreferences sharedPreferences =
+        //     await SharedPreferences.getInstance();
+        // sharedPreferences.setString('phone', phone.toString());
+        // // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Register()));
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -55,10 +84,12 @@ class _OTPScreenState extends State<OTPScreen> {
       );
       Timer(
           Duration(seconds: 3),
-          () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BottomBar()),
-              ));
+          () => otp(
+              '3333333333',
+              otpController1.text.toString().trim() +
+                  otpController2.text.toString().trim() +
+                  otpController3.text.toString().trim() +
+                  otpController4.text.toString().trim()));
     }
 
     return Scaffold(
@@ -119,7 +150,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         ],
                       ),
                       child: TextField(
-                        controller: firstController,
+                        controller: otpController1,
                         style: primaryColorHeadingStyle,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -151,7 +182,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                       child: TextField(
                         focusNode: secondFocusNode,
-                        controller: secondController,
+                        controller: otpController2,
                         style: primaryColorHeadingStyle,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -183,7 +214,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                       child: TextField(
                         focusNode: thirdFocusNode,
-                        controller: thirdController,
+                        controller: otpController3,
                         style: primaryColorHeadingStyle,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -215,7 +246,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                       child: TextField(
                         focusNode: fourthFocusNode,
-                        controller: fourthController,
+                        controller: otpController4,
                         style: primaryColorHeadingStyle,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -262,10 +293,12 @@ class _OTPScreenState extends State<OTPScreen> {
                     width: width - (fixPadding * 2.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BottomBar()));
+                        otp(
+                            '3333333333',
+                            otpController1.text.toString().trim() +
+                                otpController2.text.toString().trim() +
+                                otpController3.text.toString().trim() +
+                                otpController4.text.toString().trim());
                       },
                       style: ElevatedButton.styleFrom(
                         primary: primaryColor,
@@ -288,3 +321,4 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 }
+

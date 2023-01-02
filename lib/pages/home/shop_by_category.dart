@@ -19,7 +19,9 @@ class _shopbycategoryState extends State<shopbycategory> {
           Row(
             children: [
               Container(
-                margin: EdgeInsets.only(left: 20,),
+                margin: EdgeInsets.only(
+                  left: 20,
+                ),
                 child: Text(
                   'Shop by Category',
                   style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
@@ -27,7 +29,9 @@ class _shopbycategoryState extends State<shopbycategory> {
               ),
               Spacer(),
               Padding(
-                padding: const EdgeInsets.only(left: 80,),
+                padding: const EdgeInsets.only(
+                  left: 80,
+                ),
                 child: Text(
                   'View all',
                   style: TextStyle(fontSize: 13, color: Colors.black),
@@ -39,30 +43,35 @@ class _shopbycategoryState extends State<shopbycategory> {
           Container(
             padding: const EdgeInsets.all(12.0),
             child: GridView.builder(
-              scrollDirection: Axis.vertical,
-              physics: const ClampingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 6,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 30.0),
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  elevation: 8,
-                  child: Container(
-                    height: 110,
-                    width: 110,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 18, top: 15),
-                      child: Text(
-                        'Personal Care',
-                        style: TextStyle(fontSize: 18),
-                      ),
+                scrollDirection: Axis.vertical,
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 6,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 30.0),
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    elevation: 8,
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Image.asset(
+                            'assets/doctor.jpg',
+                            height: 81,
+                            fit: BoxFit.fitWidth,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                        Text(
+                          'Lab Tests',
+                          style: TextStyle(fontSize: 12),
+                        )
+                      ],
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
           ),
         ],
       ),

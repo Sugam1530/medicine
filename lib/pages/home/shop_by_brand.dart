@@ -17,7 +17,7 @@ class _shop_by_brandState extends State<shop_by_brand> {
           Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.only(
-              left:15,
+              left: 15,
             ),
             child: Text(
               'Shop by brand',
@@ -39,15 +39,21 @@ class _shop_by_brandState extends State<shop_by_brand> {
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     elevation: 5,
-                    child: Container(
-                      height: 110,
-                      width: 110,
-                      child: Center(
-                        child: Text(
-                          'Dabur',
-                          style: TextStyle(fontSize: 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Image.asset(
+                            'assets/dabur.png',
+                            height: 81,
+                            fit: BoxFit.fitWidth,
+                            width: MediaQuery.of(context).size.width,
+                          ),
                         ),
-                      ),
+                        Text(
+                          'Dabur',
+                          style: TextStyle(fontSize: 12),
+                        )
+                      ],
                     ),
                   );
                 }),

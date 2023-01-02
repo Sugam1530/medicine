@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:cabento/appBehaviour/my_behaviour.dart';
 import 'package:cabento/pages/splashScreen.dart';
 import 'constants/constants.dart';
+import 'pages/home/special_category.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
