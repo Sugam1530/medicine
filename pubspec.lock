@@ -377,17 +377,8 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      url: "https://pub.dartlang.org"
-<<<<<<< Updated upstream
-=======
-    source: hosted
-    version: "3.1.0"
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      url: "https://pub.dartlang.org"
->>>>>>> Stashed changes
+      sha256: fe07f9345bf03ff0c881d1f5494e20cc40206780ca5dea86aab8037cb49af5f2
+      url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
   plugin_platform_interface:

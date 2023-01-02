@@ -21,6 +21,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:image_cropper/image_cropper.dart';
 
+import 'feedback.dart';
 import 'health_articles.dart';
 import 'healthcondition.dart';
 
@@ -251,7 +252,7 @@ class _HomeState extends State<Home> {
           heightSpace,
 
           shop_by_brand(),
-          
+
           heightSpace,
           heightSpace,
           //Handpicked Item Grid Start
@@ -291,6 +292,34 @@ class _HomeState extends State<Home> {
           heightSpace,
           heightSpace,
           health_articles(),
+          heightSpace,
+          heightSpace,
+
+          healthcondition(),
+
+          heightSpace,
+          heightSpace,
+
+          feedback(),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 10, left: 60),
+                child: Text(
+                  'Stay home, Stay safe  with Cabento',
+                  style: TextStyle(fontSize: 16, color: primaryColor),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10, left: 8),
+                child: Icon(
+                  Icons.favorite,
+                  size: 35,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
