@@ -20,11 +20,11 @@ class _healthconditionState extends State<healthcondition> {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                  left: 20,
+                  left: 20, top: 10,
                 ),
                 child: Text(
                   'Shop by Health Condition',
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w600),
                 ),
               ),
             ],

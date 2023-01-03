@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cabento/constants/constants.dart';
 import 'package:http/http.dart' as http;
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OTPScreen extends StatefulWidget {
   @override
@@ -14,6 +13,7 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  var phone;
   FocusNode secondFocusNode = FocusNode();
   FocusNode thirdFocusNode = FocusNode();
   FocusNode fourthFocusNode = FocusNode();
@@ -82,14 +82,18 @@ class _OTPScreenState extends State<OTPScreen> {
           );
         },
       );
-      Timer(
-          Duration(seconds: 3),
-          () => otp(
-              '3333333389',
-              otpController1.text.toString().trim() +
-                  otpController2.text.toString().trim() +
-                  otpController3.text.toString().trim() +
-                  otpController4.text.toString().trim()));
+      Timer(Duration(seconds: 3), () async {
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        phone = sharedPreferences.getString('phone');
+        otp(
+          phone.toString(),
+          otpController1.text.toString().trim() +
+              otpController2.text.toString().trim() +
+              otpController3.text.toString().trim() +
+              otpController4.text.toString().trim(),
+        );
+      });
     }
 
     return Scaffold(
@@ -321,4 +325,3 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 }
-

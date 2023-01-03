@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           child: child,
         );
       },
-      home: Home(),
+      home: SplashScreen(),
     );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:cabento/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:cabento/constants/constants.dart';
-import 'package:http/http.dart' ;
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  var phone;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -35,11 +37,11 @@ class _RegisterState extends State<Register> {
   void Register(
     String phone,
     String name,
-   String email,
-   String password,
+    String email,
+    String password,
   ) async {
     try {
-    Response response = await post(
+      Response response = await post(
           Uri.parse(
               'https://fusionclient.live/FTL190160/cabento/api/user-signup-update'),
           body: {
@@ -47,7 +49,6 @@ class _RegisterState extends State<Register> {
             'name': name,
             'email': email,
             'password': password,
-            
           });
       if (response.statusCode == 200) {
         Navigator.push(
@@ -144,7 +145,6 @@ class _RegisterState extends State<Register> {
                     controller: emailController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.text,
-                   
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(15.0),
                       hintText: 'Email Address',
@@ -182,7 +182,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
-                
+
                 // Email Address TextField End
                 heightSpace,
                 heightSpace,
@@ -191,16 +191,17 @@ class _RegisterState extends State<Register> {
                     height: 50.0,
                     width: width - (fixPadding * 2.0),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         showLoaderDialog(context);
+                        final SharedPreferences sharedPreferences =
+                            await SharedPreferences.getInstance();
+                        phone = sharedPreferences.getString('phone');
                         Register(
-                            '9494949889',
-                            nameController.text.toString().trim(),
-                            emailController.text.toString().trim(),
-                            passwordController.text.toString().trim(),
-                            );
-
-                       
+                          phone.toString(),
+                          nameController.text.toString().trim(),
+                          emailController.text.toString().trim(),
+                          passwordController.text.toString().trim(),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         // ignore: deprecated_member_use

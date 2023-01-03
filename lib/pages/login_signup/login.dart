@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:cabento/pages/login_signup/otp_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cabento/constants/constants.dart';
 
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '';
 
 class Login extends StatefulWidget {
@@ -64,6 +64,9 @@ class _LoginState extends State<Login> {
       message = map["message"];
 
       if (response.statusCode == 200) {
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('phone', phone.toString());
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => OTPScreen(),
         ));
