@@ -300,7 +300,7 @@ class _HomeState extends State<Home> {
           heightSpace,
           heightSpace,
 
-          feedback(),
+          
           Row(
             children: [
               Container(
