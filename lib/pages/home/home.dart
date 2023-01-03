@@ -291,9 +291,11 @@ class _HomeState extends State<Home> {
           // Rate Us Now End
           heightSpace,
           heightSpace,
-          health_articles(),
-          heightSpace,
-          heightSpace,
+
+          // health_articles(),
+
+          // heightSpace,
+          // heightSpace,
 
           healthcondition(),
 

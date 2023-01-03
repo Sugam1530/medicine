@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:cabento/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cabento/constants/constants.dart';
 import 'package:cabento/pages/login_signup/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,13 +16,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _navigatehome();
+  }
 
-    Timer(
-        Duration(seconds: 5),
-        () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Login()),
-            ));
+  _navigatehome() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString('phone');
+
+    if (token != null) {
+      await Future.delayed(Duration(milliseconds: 1500), () {});
+      Navigator.pushReplacement(
+          (context),
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ));
+    } else {
+      await Future.delayed(Duration(milliseconds: 1500), () {});
+      Navigator.pushReplacement(
+          (context),
+          MaterialPageRoute(
+            builder: (context) => Login(),
+          ));
+    }
   }
 
   @override
