@@ -1,4 +1,5 @@
 import 'package:cabento/pages/doctor_consultants/doctor_consultants.dart';
+import 'package:cabento/pages/medicines/medicines_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -20,15 +21,26 @@ class _SpecialCategoryState extends State<SpecialCategory> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  "assets/medicines_banner.png",
-                  scale: 2.2,
+            InkWell(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.asset(
+                    "assets/medicines_banner.png",
+                    scale: 2.2,
+                  ),
                 ),
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: medicines_page(),
+                  ),
+                );
+              },
             ),
             InkWell(
               child: Padding(

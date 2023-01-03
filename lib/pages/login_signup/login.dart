@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cabento/pages/login_signup/otp_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cabento/constants/constants.dart';
 
@@ -60,7 +61,7 @@ class _LoginState extends State<Login> {
             'phone': phone,
           });
       Map<String, dynamic> map = jsonDecode(response.body.toString());
-      message = (map["message"]);
+      message = map["message"];
 
       if (response.statusCode == 200) {
         Navigator.of(context).push(MaterialPageRoute(

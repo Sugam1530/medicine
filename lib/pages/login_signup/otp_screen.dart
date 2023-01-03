@@ -85,7 +85,7 @@ class _OTPScreenState extends State<OTPScreen> {
       Timer(
           Duration(seconds: 3),
           () => otp(
-              '3333333333',
+              '3333333389',
               otpController1.text.toString().trim() +
                   otpController2.text.toString().trim() +
                   otpController3.text.toString().trim() +
@@ -294,7 +294,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         otp(
-                            '3333333333',
+                            '0000000000',
                             otpController1.text.toString().trim() +
                                 otpController2.text.toString().trim() +
                                 otpController3.text.toString().trim() +

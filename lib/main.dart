@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:cabento/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cabento/appBehaviour/my_behaviour.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           child: child,
         );
       },
-      home: SplashScreen(),
+      home: Home(),
     );
   }
 }

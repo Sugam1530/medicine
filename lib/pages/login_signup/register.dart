@@ -1,6 +1,7 @@
+import 'package:cabento/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:cabento/constants/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' ;
 
 class Register extends StatefulWidget {
   @override
@@ -8,36 +9,56 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // TextEditingController nameController = TextEditingController();
-  // TextEditingController emailController = TextEditingController();
-  // TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+              margin: const EdgeInsets.only(left: 7),
+              child: const Text("Loading...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
-  // void Register(
-  //   String phone,
-  //   String name,
-  //   email,
-  //   password,
-  // ) async {
-  //   try {
-  //     http.Response response = await http.post(
-  //         Uri.parse(
-  //             'https://fusionclient.live/FTL190160/cabento/api/user-signup-update'),
-  //         body: {
-  //           'phone': phone,
-  //           'name': name,
-  //           'email': email,
-  //           'password': password,
-  //         });
-  //     if (response.statusCode == 200) {
-  //       Navigator.push(
-  //           context, MaterialPageRoute(builder: (context) => ButtonBar()));
-  //     } else {
-  //       print('failed');
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
+  void Register(
+    String phone,
+    String name,
+   String email,
+   String password,
+  ) async {
+    try {
+    Response response = await post(
+          Uri.parse(
+              'https://fusionclient.live/FTL190160/cabento/api/user-signup-update'),
+          body: {
+            'phone': phone,
+            'name': name,
+            'email': email,
+            'password': password,
+            
+          });
+      if (response.statusCode == 200) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home()));
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +112,7 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   child: TextField(
-                    // controller: nameController,
+                    controller: nameController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -120,13 +141,13 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   child: TextField(
-                    // controller: passwordController,
+                    controller: emailController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.text,
-                    obscureText: true,
+                   
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(15.0),
-                      hintText: 'Password',
+                      hintText: 'Email Address',
                       hintStyle: primaryColorHeadingStyle,
                       border: InputBorder.none,
                     ),
@@ -150,17 +171,18 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   child: TextField(
-                    // controller: emailController,
+                    controller: passwordController,
                     style: primaryColorHeadingStyle,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(15.0),
-                      hintText: 'Email Address',
+                      hintText: 'Password',
                       hintStyle: primaryColorHeadingStyle,
                       border: InputBorder.none,
                     ),
                   ),
                 ),
+                
                 // Email Address TextField End
                 heightSpace,
                 heightSpace,
@@ -170,17 +192,15 @@ class _RegisterState extends State<Register> {
                     width: width - (fixPadding * 2.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Register(
-                        //     '2587496587',
-                        //     nameController.text.toString().trim(),
-                        //     passwordController.text.toString().trim(),
-                        //     emailController.text.toString().trim());
+                        showLoaderDialog(context);
+                        Register(
+                            '9494949889',
+                            nameController.text.toString().trim(),
+                            emailController.text.toString().trim(),
+                            passwordController.text.toString().trim(),
+                            );
 
-                        // Navigator.push(
-                        //     context,
-                        //     PageTransition(
-                        //         type: PageTransitionType.rightToLeft,
-                        //         child: OTPScreen()));
+                       
                       },
                       style: ElevatedButton.styleFrom(
                         // ignore: deprecated_member_use
