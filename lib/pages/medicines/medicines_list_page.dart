@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:cabento/constants/constants.dart';
 import 'package:cabento/pages/choose_location_address/choose_location.dart';
 import 'package:cabento/pages/search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:http/http.dart' as http;
 
 import '../offer/offer.dart';
 
@@ -14,25 +17,28 @@ class medicines_page extends StatefulWidget {
 }
 
 class _medicines_pageState extends State<medicines_page> {
-  bool _isFavorited = false;
-  int _isFavoritCount = 0;
-  void _toggleFavorit() {
-    setState(() {
-      if (_isFavorited) {
-        _isFavoritCount = 0;
-        _isFavorited = false;
-      } else {
-        _isFavoritCount += 1;
-        _isFavorited = true;
-      }
-    });
+  var baseUrl;
+  List<String> icon = [];
+
+  var map, data;
+  Future getApi() async {
+    final responce = await http.get(Uri.parse(
+        'https://fusionclient.live/FTL190160/cabento/api/medicine-list'));
+
+    map = jsonDecode(responce.body.toString());
+    data = map["medicine_list"];
+    baseUrl = map["baseUrl"];
+
+    if (responce.statusCode == 200) {
+      return data;
+    } else {
+      return data;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: primaryColor,
           automaticallyImplyLeading: false,
@@ -131,139 +137,127 @@ class _medicines_pageState extends State<medicines_page> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 10, top: 15),
-                          height: 100,
-                          width: 340,
+        body: FutureBuilder(
+            future: getApi(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Color.fromARGB(255, 232, 186, 80),
+                  ),
+                );
+              } else {
+                return GridView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: data.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisExtent: 210,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 5.0,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {},
+                        child: Container(
+                          margin: EdgeInsets.only(left: 2, top: 8),
+                          width: 150.0,
+                          height: 260.0,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 247, 244, 244),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
+                            border: Border.all(color: Colors.black),
+
+                            // image: DecorationImage(
+                            //   image: AssetImage('assets/nd-cold.png'),
+                            //   fit: BoxFit.fitHeight,
+                            // ),
                           ),
-                          child: Row(
+                          child: Column(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(),
-                                alignment: Alignment.bottomLeft,
-                                child: Image.asset(
-                                  'assets/kidney.png',
-                                  scale: 5,
+                                height: 100,
+                                child: Image.network(
+                                  baseUrl + data[index]['product_image'],
                                 ),
                               ),
-                              Column(
+                              Text(
+                                data[index]['product_name'],
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w500),
+                              ),
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: 50, left: 10, top: 8),
-                                        child: Text(
-                                          'kidney',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Container(
-                                    margin: EdgeInsets.only(right: 90, top: 3),
+                                    margin: EdgeInsets.only(
+                                      left: 10,
+                                    ),
                                     child: Text(
-                                      'Rs - 200',
+                                      data[index]['product_price'] != null
+                                          ? "Rs:-" +
+                                              data[index]['product_price']
+                                          : 'RS:-' + "20.3",
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: 50, left: 30),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                      ),
-                                    ],
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      left: 5,
+                                    ),
+                                    child: Text(
+                                      'Rs:- 44.6/-',
+                                      style: TextStyle(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(
+                                              255, 206, 183, 111)),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      left: 5,
+                                    ),
+                                    child: Text(
+                                      '2 % off',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.green),
+                                    ),
                                   ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),  
+                              SizedBox(
+                                width: 90,
+                                height: 30,
+                                child: ElevatedButton(
+                                  child: Text(
+                                    'add to card',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Color.fromARGB(255, 27, 134, 30),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      textStyle: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 15, top: 15),
-                height: 2,
-                width: 330,
-                color: Colors.black,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 170, top: 20),
-                child: Text(
-                  'TOTAL       340/-',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 26, top: 30),
-                child: SizedBox(
-                  width: 300,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    // ignore: sort_child_properties_last
-                    child: const Text(
-                      'Check Out',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 15,
-                      backgroundColor: Color.fromARGB(255, 188, 158, 86),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 130, top: 14),
-                child: Text(
-                  'Or Add More Products',
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                      );
+                    });
+              }
+            }));
   }
 }

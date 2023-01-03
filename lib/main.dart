@@ -8,7 +8,6 @@ import 'package:cabento/pages/splashScreen.dart';
 import 'constants/constants.dart';
 import 'pages/home/special_category.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
