@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:badges/badges.dart';
@@ -10,7 +12,6 @@ import 'package:cabento/pages/cart_payment/cart.dart';
 import 'package:cabento/pages/choose_location_address/choose_location.dart';
 import 'package:cabento/pages/home/deal_of_the_day_grid.dart';
 import 'package:cabento/pages/home/discount_grid.dart';
-import 'package:cabento/pages/home/featured_brand_grid.dart';
 import 'package:cabento/pages/home/handpicked_item_grid.dart';
 import 'package:cabento/pages/home/previous_order_row.dart';
 import 'package:cabento/pages/home/slider.dart';
@@ -20,6 +21,8 @@ import 'package:cabento/pages/search/search.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'feedback.dart';
 import 'health_articles.dart';
@@ -203,7 +206,9 @@ class _HomeState extends State<Home> {
             child: Row(
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    launch("https://wa.me/+916290630828?text=Hello");
+                  },
                   child: Row(
                     children: [
                       Image.asset(
@@ -221,7 +226,9 @@ class _HomeState extends State<Home> {
                   width: 5,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    launch('tel://+916290630828');
+                  },
                   child: Row(
                     children: [
                       Image.asset(
