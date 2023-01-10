@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://fusionclient.live/FTL190160/cabento/api/user-login'),
+              'https://fusionclient.live/FTL190160/cabento/api/signup-phone'),
           body: {
             'phone': phone,
           });

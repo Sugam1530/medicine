@@ -232,7 +232,7 @@ class _medicines_pageState extends State<medicines_page> {
                               ),
                               SizedBox(
                                 height: 5,
-                              ),  
+                              ),
                               SizedBox(
                                 width: 90,
                                 height: 30,

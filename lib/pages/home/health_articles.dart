@@ -35,19 +35,42 @@ class _health_articlesState extends State<health_articles> {
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
-              ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Card(
+            ],
+          ),
+          Container(
+            height: 100,
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: 7,
+              itemBuilder: (BuildContext context, int position) {
+                return Container(
+                  margin: EdgeInsets.only(left: 8),
+                  height: 100,
+                  width: 100,
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
+                  child: Container(
+                    // margin: EdgeInsets.only(bottom: 10),
                     child: Column(
                       children: [
-                        Text("data"),
+                        Image.asset(
+                          'assets/medi.png',
+                          scale: 1,
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(top: 8),
+                            child: Text(
+                              'paracetamol',
+                              style: TextStyle(fontSize: 12),
+                            )),
                       ],
                     ),
-                  );
-                },
-              )
-            ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cabento/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:cabento/constants/constants.dart';
@@ -10,7 +12,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  var phone;
+  
+  var phone, token;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -33,7 +36,7 @@ class _RegisterState extends State<Register> {
       },
     );
   }
-
+  
   void Register(
     String phone,
     String name,
@@ -43,18 +46,28 @@ class _RegisterState extends State<Register> {
     try {
       Response response = await post(
           Uri.parse(
-              'https://fusionclient.live/FTL190160/cabento/api/user-signup-update'),
+              'https://fusionclient.live/FTL190160/cabento/api/user-registerr'),
           body: {
             'phone': phone,
             'name': name,
             'email': email,
             'password': password,
+           
           });
+
+      Map<String, dynamic> map = jsonDecode(response.body.toString());
+      token = map["token"];
       if (response.statusCode == 200) {
+         final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('phone', phone.toString());
+        sharedPreferences.setString('token', token.toString());                
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Home()));
       } else {
         print('failed');
+        
+        
       }
     } catch (e) {
       print(e.toString());
