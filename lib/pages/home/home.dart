@@ -19,8 +19,7 @@ import 'package:cabento/pages/search/search.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 import 'feedback.dart';
 import 'health_articles.dart';
@@ -205,7 +204,7 @@ class _HomeState extends State<Home> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    launch("https://wa.me/+916290630828?text=Hello");
+                    ("https://wa.me/+916290630828?text=Hello");
                   },
                   child: Row(
                     children: [
@@ -225,7 +224,7 @@ class _HomeState extends State<Home> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    launch('tel://+916290630828');
+                    ('tel://+916290630828');
                   },
                   child: Row(
                     children: [
