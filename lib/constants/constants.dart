@@ -137,7 +137,7 @@ TextStyle redDiscountStyle = TextStyle(
 );
 
 TextStyle priceStyle = TextStyle(
-  fontSize: 24.0,
+  fontSize: 20.0,
   color: primaryColor,
   fontWeight: FontWeight.w500,
   height: 1.2,

@@ -368,14 +368,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      sha256: "52e38f7e1143ef39daf532117d6b8f8f617bf4bcd6044ed8c29040d20d269630"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
   page_transition:
     dependency: "direct main"
     description:
@@ -464,22 +456,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  share_plus:
-    dependency: "direct main"
-    description:
-      name: share_plus
-      sha256: "75d2b5489ee248d2791f7aaf1f3b316219a0110ae34d17f6163622dab3242eef"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.1"
-  share_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: share_plus_platform_interface
-      sha256: bdc228d4111f4b7ef2d949e5f13521adab03a386e4013c80ea4a9df79ef1d9d1
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.2"
   shared_preferences:
     dependency: "direct main"
     description:

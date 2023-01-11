@@ -19,7 +19,8 @@ import 'package:cabento/pages/search/search.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:image_cropper/image_cropper.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import 'feedback.dart';
 import 'health_articles.dart';
@@ -31,6 +32,101 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  File _image;
+  Future<void> uploadImageServer1() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString('token');
+    String message;
+
+    // var stream = new http.ByteStream(uploadImage!.openRead());
+    // stream.cast();
+    var length = await _image.length();
+    var uri = Uri.parse(
+      "https://fusionclient.live/FTL190160/cabento/api/prescription-upload");
+    Map<String, String> headers = {
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
+
+    var request = http.MultipartRequest('POST', uri);
+    request.headers.addAll(headers);
+
+    List<String> photos = [_image.path];
+
+    List<http.MultipartFile> newList = [];
+
+    for (var img in photos) {
+      if (img != "") {
+        var multipartFile = await http.MultipartFile.fromPath(
+          'image',
+          File(img).path,
+          filename: img.split('/').last,
+        );
+        newList.add(multipartFile);
+      }
+    }
+    request.files.addAll(newList);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      setState(() {});
+      print("Image Uloaded");
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Prescription updated successfully"),
+      ));
+    } else {
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Failed to upload photo"),
+      ));
+      print("Failed");
+    }
+  }
+
+  Future<File> _cropImage({File imageFile}) async {
+    CroppedFile croppedImage =
+        await ImageCropper().cropImage(sourcePath: imageFile.path);
+    if (croppedImage == null) return null;
+    return File(croppedImage.path);
+  }
+
+  Future getStory(ImageSource media) async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    File imageTemporary = File(image.path);
+    imageTemporary = await _cropImage(imageFile: imageTemporary);
+    setState(() {
+      showLoaderDialog(context);
+      uploadImageServer1();
+      _image = imageTemporary;
+    });
+  }
+
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Loading..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -179,7 +275,9 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.only(
                 top: 8.0, bottom: 8.0, left: 20, right: 20),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                getStory(ImageSource.gallery);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -322,7 +420,7 @@ class _HomeState extends State<Home> {
                   size: 35,
                   color: Colors.red,
                 ),
-              ),
+              ),            
             ],
           ),
         ],

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cabento/pages/bottom_bar.dart';
 import 'package:cabento/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
           (context),
           MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) => BottomBar(),
           ));
     } else {
       await Future.delayed(Duration(milliseconds: 1500), () {});
