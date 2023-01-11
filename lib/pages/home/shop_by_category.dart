@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:cabento/pages/category/single_category.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 
 class shopbycategory extends StatefulWidget {
   const shopbycategory({Key key}) : super(key: key);
@@ -91,9 +92,15 @@ class _shopbycategoryState extends State<shopbycategory> {
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => single_category(),
-                              ));
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: single_category(
+                                    id: data[index]["id"].toString(),
+                                  ),
+                                ),
+                              );
                             },
                             child: Card(
                               elevation: 8,
@@ -104,8 +111,7 @@ class _shopbycategoryState extends State<shopbycategory> {
                                       baseUrl + data[index]['icon'],
                                       height: 81,
                                       fit: BoxFit.fitWidth,
-                                      width:
-                                          MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context).size.width,
                                     ),
                                   ),
                                   Text(

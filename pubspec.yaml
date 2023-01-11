@@ -31,7 +31,7 @@ dependencies:
   page_transition: ^1.1.6
   badges: ^1.1.1
   dotted_border: ^1.0.6
-  image_picker: 
+  image_picker: ^0.8.6
   dotted_line: ^2.0.1
   carousel_slider: ^2.2.1
   timeline: ^0.0.1
@@ -41,7 +41,6 @@ dependencies:
   intl_phone_field: ^3.1.0
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.6
-  share_plus: 
   
   
   

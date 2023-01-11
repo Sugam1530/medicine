@@ -469,7 +469,7 @@ class _ProductState extends State<Product> {
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(width: 1.0, color: primaryColor),
                     image: DecorationImage(
-                      image: AssetImage(item),
+                      image: NetworkImage(item),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -571,7 +571,7 @@ class _ProductState extends State<Product> {
                     border: Border.all(width: 1.0, color: primaryColor),
                     color: (addedToCart) ? whiteColor : primaryColor,
                   ),
-                  child: Text((addedToCart) ? 'Select Qty' : 'Add',
+                  child: Text((addedToCart) ? ' Qty' : 'Add',
                       style: (addedToCart)
                           ? primaryColorBigHeadingStyle
                           : whiteBigHeadingStyle),
